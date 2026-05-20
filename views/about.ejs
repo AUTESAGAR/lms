@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Us - VIT Technology Solution</title>
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body{
+      background:#f5f7fb;
+      color:#222;
+      line-height:1.6;
+    }
+
+    .hero{
+      width:100%;
+      min-height:70vh;
+      background:
+      linear-gradient(rgba(0,0,0,0.75),rgba(0,0,0,0.75)),
+      url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1400&auto=format&fit=crop');
+      background-size:cover;
+      background-position:center;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:40px;
+    }
+
+    .hero-content{
+      max-width:900px;
+      color:#fff;
+    }
+
+    .hero h1{
+      font-size:60px;
+      margin-bottom:20px;
+      font-weight:700;
+    }
+
+    .hero h1 span{
+      color:#00d9ff;
+      color:#fe9c1b;
+    }
+
+    .hero p{
+      font-size:20px;
+      margin-bottom:30px;
+      color:#ddd;
+    }
+
+    .hero-btn{
+      display:inline-block;
+      padding:15px 35px;
+      background:#00d9ff;
+      background:#fe9c1b;
+      color:#000;
+      text-decoration:none;
+      border-radius:40px;
+      font-weight:bold;
+      transition:0.3s;
+    }
+
+    .hero-btn:hover{
+      background:#fff;
+      transform:translateY(-3px);
+    }
+
+    .container{
+      width:90%;
+      max-width:1300px;
+      margin:auto;
+      padding:80px 0;
+    }
+
+    .section-title{
+      text-align:center;
+      margin-bottom:60px;
+    }
+
+    .section-title h2{
+      font-size:42px;
+      color:#111827;
+      margin-bottom:15px;
+    }
+
+    .section-title p{
+      color:#666;
+      max-width:800px;
+      margin:auto;
+      font-size:18px;
+    }
+
+    .about-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+      gap:40px;
+      align-items:center;
+    }
+
+    .about-image img{
+      width:100%;
+      border-radius:20px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    .about-content h3{
+      font-size:35px;
+      margin-bottom:20px;
+      color:#111827;
+    }
+
+    .about-content p{
+      margin-bottom:20px;
+      color:#555;
+      font-size:17px;
+    }
+
+    .highlight{
+      color:#00a6c4;
+      color:#fe9c1b;
+      font-weight:bold;
+    }
+
+    .stats{
+      margin-top:60px;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:25px;
+    }
+
+    .stat-box{
+      background:#fff;
+      padding:35px 20px;
+      border-radius:18px;
+      text-align:center;
+      box-shadow:0 5px 20px rgba(0,0,0,0.08);
+      transition:0.3s;
+    }
+
+    .stat-box:hover{
+      transform:translateY(-8px);
+    }
+
+    .stat-box i{
+      font-size:45px;
+      color:#fe9c1b;
+      margin-bottom:15px;
+    }
+
+    .stat-box h3{
+      font-size:38px;
+      color:#111827;
+      margin-bottom:10px;
+    }
+
+    .stat-box p{
+      color:#666;
+      font-weight:500;
+    }
+
+    .courses{
+      background:#0f172a;
+      color:#fff;
+    }
+
+    .course-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:30px;
+      margin-top:50px;
+    }
+
+    .course-card{
+      background:#1e293b;
+      padding:30px;
+      border-radius:20px;
+      transition:0.3s;
+      border:1px solid rgba(255,255,255,0.08);
+    }
+
+    .course-card:hover{
+      transform:translateY(-8px);
+      background:#fe9c1b;
+    }
+
+    .course-card i{
+      font-size:45px;
+      margin-bottom:20px;
+    }
+
+    .course-card h3{
+      margin-bottom:15px;
+      font-size:24px;
+    }
+
+    .course-card p{
+      color:#e5e5e5;
+    }
+
+    .why-us{
+      background:#fff;
+    }
+
+    .features{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:25px;
+      margin-top:50px;
+    }
+
+    .feature-box{
+      background:#f8fafc;
+      padding:30px;
+      border-radius:16px;
+      transition:0.3s;
+      border-left:5px solid #fe9c1b;
+    }
+
+    .feature-box:hover{
+      transform:translateY(-5px);
+      background:#eef9ff;
+    }
+
+    .feature-box i{
+      font-size:35px;
+      color:#fe9c1b;
+      margin-bottom:15px;
+    }
+
+    .feature-box h4{
+      margin-bottom:10px;
+      font-size:22px;
+    }
+
+    .address{
+      background:
+      linear-gradient(rgba(0,0,0,0.85),rgba(0,0,0,0.85)),
+      url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1400&auto=format&fit=crop');
+      background-size:cover;
+      background-position:center;
+      color:#fff;
+      text-align:center;
+      padding:90px 20px;
+    }
+
+    .address h2{
+      font-size:45px;
+      margin-bottom:25px;
+    }
+
+    .address p{
+      font-size:20px;
+      max-width:800px;
+      margin:auto;
+      color:#ddd;
+    }
+
+    .footer{
+      background:#020617;
+      color:#bbb;
+      text-align:center;
+      padding:30px 15px;
+    }
+
+    .footer h3{
+      color:#fff;
+      margin-bottom:10px;
+      font-size:28px;
+    }
+
+    .footer p{
+      margin-top:10px;
+    }
+
+    @media(max-width:768px){
+
+      .hero h1{
+        font-size:40px;
+      }
+
+      .hero p{
+        font-size:17px;
+      }
+
+      .section-title h2{
+        font-size:32px;
+      }
+
+      .about-content h3{
+        font-size:28px;
+      }
+
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- HERO SECTION -->
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Welcome To <span>VIT Technology Solution</span></h1>
+
+      <p>
+        Since 2013, we are building skilled IT professionals with practical training,
+        live projects, fullstack development courses, and modern technology education.
+      </p>
+
+      <a href="#" class="hero-btn">Explore Courses</a>
+    </div>
+  </section>
+
+  <!-- ABOUT SECTION -->
+
+  <section class="container">
+
+    <div class="section-title">
+      <h2>About Us</h2>
+
+      <p>
+        VIT Technology Solution is one of the growing IT training institutes
+        focused on practical education, industry-level skills, and career growth.
+      </p>
+    </div>
+
+    <div class="about-grid">
+
+      <div class="about-image">
+        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&auto=format&fit=crop" alt="">
+      </div>
+
+      <div class="about-content">
+
+        <h3>Your Future In Technology Starts Here</h3>
+
+        <p>
+          <span class="highlight">VIT Technology Solution</span> has been providing
+          high-quality IT education since <span class="highlight">2013</span>.
+          Our mission is to help students become confident developers and IT professionals.
+        </p>
+
+        <p>
+          We focus on practical coding, real-world projects, interview preparation,
+          and modern technologies that are highly demanded in today's software industry.
+        </p>
+
+        <p>
+          Whether you are a beginner, college student, freelancer, or job seeker,
+          our courses are designed to make you industry-ready.
+        </p>
+
+      </div>
+
+    </div>
+
+    <!-- STATS -->
+
+    <div class="stats">
+
+      <div class="stat-box">
+        <i class="fa-solid fa-user-graduate"></i>
+        <h3>5000+</h3>
+        <p>Students Trained</p>
+      </div>
+
+      <div class="stat-box">
+        <i class="fa-solid fa-code"></i>
+        <h3>10+</h3>
+        <p>Professional Courses</p>
+      </div>
+
+      <div class="stat-box">
+        <i class="fa-solid fa-laptop-code"></i>
+        <h3>100%</h3>
+        <p>Practical Training</p>
+      </div>
+
+      <div class="stat-box">
+        <i class="fa-solid fa-briefcase"></i>
+        <h3>Career</h3>
+        <p>Focused Learning</p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- COURSES -->
+
+  <section class="courses">
+
+    <div class="container">
+
+      <div class="section-title">
+        <h2 style="color:white;">Available Courses</h2>
+
+        <p style="color:#cbd5e1;">
+          Learn modern technologies and become industry-ready with professional IT training.
+        </p>
+      </div>
+
+      <div class="course-grid">
+
+        <div class="course-card">
+          <i class="fa-brands fa-js"></i>
+          <h3>JavaScript Special Batch</h3>
+          <p>Basic JavaScript to Advanced JavaScript with real-time projects.</p>
+        </div>
+
+        <div class="course-card">
+          <i class="fa-brands fa-php"></i>
+          <h3>PHP Fullstack</h3>
+          <p>Frontend + Backend + Database + Live Project Development.</p>
+        </div>
+
+        <div class="course-card">
+          <i class="fa-brands fa-react"></i>
+          <h3>MERN Fullstack</h3>
+          <p>MongoDB, Express.js, React.js, Node.js complete training.</p>
+        </div>
+
+        <div class="course-card">
+          <i class="fa-brands fa-angular"></i>
+          <h3>MEAN Fullstack</h3>
+          <p>Angular based enterprise-level fullstack development course.</p>
+        </div>
+
+        <div class="course-card">
+          <i class="fa-brands fa-python"></i>
+          <h3>Python Fullstack</h3>
+          <p>Python programming with Django and modern web development.</p>
+        </div>
+
+        <div class="course-card">
+          <i class="fa-solid fa-robot"></i>
+          <h3>Artificial Intelligence</h3>
+          <p>AI fundamentals, automation, and future-ready technologies.</p>
+        </div>
+
+        <div class="course-card">
+          <i class="fa-brands fa-java"></i>
+          <h3>Java Programming</h3>
+          <p>Basic to Advanced Java programming with OOP concepts.</p>
+        </div>
+
+        <div class="course-card">
+          <i class="fa-solid fa-computer"></i>
+          <h3>CCC Course</h3>
+          <p>Computer fundamentals and office productivity training.</p>
+        </div>
+
+        <div class="course-card">
+          <i class="fa-solid fa-chart-line"></i>
+          <h3>SAP Training</h3>
+          <p>Professional SAP training for business and enterprise solutions.</p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- WHY CHOOSE US -->
+
+  <section class="why-us">
+
+    <div class="container">
+
+      <div class="section-title">
+        <h2>Why Choose Us?</h2>
+
+        <p>
+          We focus on practical learning, career development, and industry-oriented training.
+        </p>
+      </div>
+
+      <div class="features">
+
+        <div class="feature-box">
+          <i class="fa-solid fa-laptop"></i>
+          <h4>Live Practical Sessions</h4>
+          <p>Hands-on coding and project-based training approach.</p>
+        </div>
+
+        <div class="feature-box">
+          <i class="fa-solid fa-lightbulb"></i>
+          <h4>Trending Technologies</h4>
+          <p>Learn AI, Fullstack Development, JavaScript, Python, and more.</p>
+        </div>
+
+        <div class="feature-box">
+          <i class="fa-solid fa-users"></i>
+          <h4>Expert Guidance</h4>
+          <p>Experienced trainers with professional industry knowledge.</p>
+        </div>
+
+        <div class="feature-box">
+          <i class="fa-solid fa-user-tie"></i>
+          <h4>Interview Preparation</h4>
+          <p>Career guidance and technical interview preparation support.</p>
+        </div>
+
+        <div class="feature-box">
+          <i class="fa-solid fa-certificate"></i>
+          <h4>Professional Learning</h4>
+          <p>Industry-oriented syllabus with modern development tools.</p>
+        </div>
+
+        <div class="feature-box">
+          <i class="fa-solid fa-rocket"></i>
+          <h4>Career Growth</h4>
+          <p>Build confidence, skills, and opportunities in the IT field.</p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ADDRESS -->
+
+  <section class="address">
+
+    <h2>Visit Our Institute</h2>
+
+    <p>
+      Rajmata Complex, 3rd Floor, Above Mannubhai Mithaiwale Shop,
+      Kranti Chowk, Chhatrapati Sambhajinagar - 431001
+    </p>
+
+  </section>
+
+  <!-- FOOTER -->
+
+  <footer class="footer">
+
+    <h3>VIT Technology Solution</h3>
+
+    <p>
+      Empowering Students With Modern Technology Education Since 2013
+    </p>
+
+    <p style="margin-top:15px;">
+      © 2026 All Rights Reserved | VIT Technology Solution
+    </p>
+
+  </footer>
+
+</body>
+</html>

@@ -7,6 +7,7 @@ import dashboardRouter from "./routes/dashboard.js";
 import courseRouter from "./routes/course.js"
 import homeRouter from "./routes/home.js"
 import courseOrderRouter from "./routes/courseOrder.js";
+import aboutRouter from "./routes/about.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import fs from "fs";
@@ -86,6 +87,7 @@ app.use(dashboardRouter);
 app.use(courseRouter);
 app.use(homeRouter);
 app.use(courseOrderRouter);
+app.use(aboutRouter);
 
 app.use((err, req, res, next) => {
     console.log(err);

@@ -13,7 +13,7 @@ import fs from "fs";
 import session from "express-session";
 import MongoStore from "connect-mongo";
 import path from "path";
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 1000;
 
 function loadEnvFile() {
     if (!fs.existsSync(".env")) return;
@@ -56,12 +56,6 @@ app.use(
 
 app.use(cors({origin: true,credentials: true}));
 app.use(cookieParser());
-
-// app.use(session({
-//     secret: '!@#$%^&*',
-//     resave: false,
-//     saveUninitialized: true}
-// ));
 
 app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());

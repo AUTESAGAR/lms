@@ -93,6 +93,60 @@
             datasets: [{
                 label: 'Dashboard Statistics',
                 data: [enrolledStudents, registeredStudents, totalEnquiries],
+                backgroundColor: [
+                    '#4F46E5',
+                    '#06B6D4',
+                    '#10B981'
+                ],
+                borderRadius: 10,
+                borderWidth: 0
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        }
+    });
+
+    new Chart(document.getElementById('pieChart'), {
+        type: 'doughnut',
+        data: {
+            labels: ['Income', 'Enrolled', 'Registered', 'Enquiries'],
+            datasets: [{
+                data: [totalIncome, enrolledStudents, registeredStudents, totalEnquiries],
+                backgroundColor: [
+                    '#4F46E5',
+                    '#3B82F6',
+                    '#06B6D4',
+                    '#10B981'
+                ],
+                borderWidth: 0
+            }]
+        },
+        options: {
+            responsive: true,
+            cutout: '68%'
+        }
+    });
+</script>
+
+<!-- <script>
+    const totalIncome = Number(document.getElementById('total-income').textContent || 0);
+    const enrolledStudents = Number(document.getElementById('enrolled-students').textContent || 0);
+    const registeredStudents = Number(document.getElementById('registered-students').textContent || 0);
+    const totalEnquiries = Number(document.getElementById('total-enquiries').textContent || 0);
+
+    new Chart(document.getElementById('barChart'), {
+        type: 'bar',
+        data: {
+            labels: ['Enrolled', 'Registered', 'Enquiries'],
+            datasets: [{
+                label: 'Dashboard Statistics',
+                data: [enrolledStudents, registeredStudents, totalEnquiries],
                 backgroundColor: ['#f97316', '#fb923c', '#10b981'],
                 borderRadius: 8,
                 borderWidth: 0
@@ -119,7 +173,7 @@
             cutout: '68%'
         }
     });
-</script>
+</script> -->
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>

@@ -60,8 +60,8 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
 
-app.use(express.static("./static"));
-app.use(express.static("./uploads"));
+app.use(express.static("../static"));
+app.use(express.static("../uploads"));
 app.use("/course-content", express.static("./uploads/course-content"));
 
 app.use((req, res, next) => {

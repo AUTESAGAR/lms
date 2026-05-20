@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | VIT LMS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <%- include('./components/header') %>
+
+    <main class="container auth-layout">
+        <section class="auth-panel">
+            <span class="eyebrow">Start your upskilling journey</span>
+            <h1 class="hero-title fs-1">Create your student account.</h1>
+            <p class="hero-copy">Register once and get access to course purchase, learning dashboard and protected course content.</p>
+            <div class="stat-strip">
+                <div class="stat-pill"><strong>Video</strong><span>Lessons</span></div>
+                <div class="stat-pill"><strong>PDF</strong><span>Resources</span></div>
+                <div class="stat-pill"><strong>Mentor</strong><span>Flow</span></div>
+            </div>
+        </section>
+
+        <section class="form-card">
+            <h3 class="fw-bold mb-1">Join VIT LMS</h3>
+            <p class="muted-copy mb-4">Fill your details to create an account.</p>
+            <form action="/reg" method="post" enctype="multipart/form-data">
+                <label class="form-label fw-bold">Full Name</label>
+                <input type="text" name="name" id="name" class="form-control mb-3" placeholder="Enter your name">
+
+                <label class="form-label fw-bold">Mobile</label>
+                <input type="text" name="mobile" id="mobile" class="form-control mb-3" placeholder="10 digit mobile number">
+
+                <label class="form-label fw-bold">Email</label>
+                <input type="text" name="email" id="email" class="form-control mb-3" placeholder="name@example.com">
+
+                <label class="form-label fw-bold">Password</label>
+                <input type="password" name="password" id="password" class="form-control mb-3" placeholder="Create password">
+
+                <label class="form-label fw-bold">Profile Photo</label>
+                <input type="file" name="photo" id="photo" class="form-control mb-3" accept=".jpg,.jpeg,.png,.webp,.avif">
+
+                <% if (message) { %>
+                    <div class="alert-soft mb-3" id="pop"><%= message %></div>
+                <% } %>
+
+                <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+                    <a href="/login" class="fw-bold text-decoration-none text-muted">Already registered?</a>
+                    <button class="btn btn-brand px-4">Create Account</button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <%- include('./components/footer') %>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const pop = document.getElementById("pop");
+            if (pop) {
+                setTimeout(() => {
+                    pop.style.display = "none";
+                }, 5000);
+            }
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

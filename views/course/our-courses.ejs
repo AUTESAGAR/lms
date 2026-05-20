@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Courses</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+   <%- include('../components/header') %>
+
+    <main class="section-wrap">
+        <div class="container">
+            <div class="section-head">
+                <div>
+                    <h1 class="page-title">Manage Courses</h1>
+                    <p>Update course information, add content and keep the LMS catalog fresh.</p>
+                </div>
+                <a href="/add-course" class="btn btn-brand">Add New Course</a>
+            </div>
+
+            <% if (courseData && courseData.length) { %>
+                <div class="course-grid">
+                    <% courseData.forEach(courseData => { %>
+                        <article class="course-card">
+                            <img class="course-thumb" src="<%- courseData.thumbnail %>" alt="<%- courseData.title %> thumbnail">
+                            <div class="course-body">
+                                <span class="course-tag">Admin course</span>
+                                <h3 class="course-title"><%- courseData.title %></h3>
+                                <p class="course-desc"><%- courseData.description.slice(0,150) %></p>
+                                <div class="course-meta">
+                                    <span class="price">&#8377; <%- courseData.fees %></span>
+                                    <span class="rating">Live</span>
+                                </div>
+                                <div class="action-row">
+                                    <a href="/edit-course/<%- courseData._id %>" class="btn btn-warning flex-grow-1">Edit</a>
+                                    <a href="/add-course-content/<%- courseData._id %>" class="btn btn-brand flex-grow-1">Content</a>
+                                    <a href="/delete-course/<%- courseData._id %>" class="btn btn-danger flex-grow-1">Delete</a>
+                                </div>
+                            </div>
+                        </article>
+                    <% }) %>
+                </div>
+            <% } else { %>
+                <div class="empty-state">No courses added yet.</div>
+            <% } %>
+        </div>
+    </main>
+
+    <%- include('../components/footer') %>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Course Content</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/lms.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg lms-navbar py-2">
+        <div class="container">
+            <a class="lms-brand" href="/">
+                <img src="../vit-technology-solution.png" alt="VIT Technology Solution">
+                <span class="brand-text">
+                    VIT Technology
+                    <small>Skill LMS</small>
+                </span>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <% if (userData && userData.role!="admin" ) { %>
+                        <li class="nav-item"><a class="nav-link" href="/home">Explore</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/my-courses">My Learning</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+                        <% } else if (userData && userData.role=="admin" ) { %>
+                            <li class="nav-item"><a class="nav-link" href="/dashboard">Dashboard</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/our-courses">Courses</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/add-course">Add Course</a></li>
+                            <% } else { %>
+                                <li class="nav-item"><a class="nav-link" href="/">Courses</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
+                                <% } %>
+                </ul>
+
+                <% if (userData) { %>
+                    <div class="dropdown">
+                        <button class="btn user-menu-btn dropdown-toggle" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <b><%- userData.name %></b>
+                            <img src="../<%- userData.photo %>" alt="user photo" class="rounded-circle user-avatar ms-2">
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+                            <li><span class="dropdown-item-text text-muted"><%-
+                                        userData.role.toUpperCase().slice(0,1)+userData.role.slice(1) %> Account</span>
+                            </li>
+                            <li><a class="dropdown-item" href="/edit-profile">Edit Profile</a></li>
+                            <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                        </ul>
+                    </div>
+                    <% } else { %>
+                        <div class="d-flex gap-2">
+                            <a class="btn btn-warning" href="/reg">Register</a>
+                            <a class="btn btn-brand" href="/login">Login</a>
+                        </div>
+                        <% } %>
+            </div>
+        </div>
+    </nav>
+
+    <main class="section-wrap">
+        <div class="container">
+            <div class="section-head">
+                <div>
+                    <h1 class="page-title">
+                        <%= courseData.title %>
+                    </h1>
+                    <p>Build the course curriculum with YouTube video lessons.</p>
+                </div>
+                <a href="/our-courses" class="btn btn-warning">Back to Courses</a>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <div class="detail-card p-4">
+                        <h4 class="fw-bold mb-3">Course Content</h4>
+                        <ul class="list-group list-group-flush">
+                            <% if (courseContent && courseContent.length) { %>
+                                <% courseContent.forEach((item, index)=> { %>
+                                    <li class="list-group-item px-0">
+                                        <div class="d-flex align-items-center justify-content-between gap-3">
+                                            <button
+                                                class="btn btn-link text-start text-decoration-none p-0 content-item"
+                                                data-url="<%- item.youtubeUrl %>" data-title="<%- item.title %>">
+                                                <%- index + 1 %>. <%- item.title %>
+                                            </button>
+                                            <span class="d-flex gap-3">
+                                                <a href="/edit-course-content/<%- item._id %>" class="text-success"><i
+                                                        class="fa-solid fa-pen-to-square"></i></a>
+                                                <a href="/delete-course-content/<%- item._id %>" class="text-danger"><i
+                                                        class="fa-solid fa-trash"></i></a>
+                                            </span>
+                                        </div>
+                                    </li>
+                                    <% }) %>
+                                        <% } else { %>
+                                            <li class="list-group-item text-danger px-0">Course Content Not Available
+                                            </li>
+                                            <% } %>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="detail-card p-4 h-100">
+                        <h4 id="previewTitle" class="fw-bold mb-3">Preview</h4>
+                        <% if (courseContent && courseContent.length) { %>
+                            <iframe id="contentFramePreview" src="<%- courseContent[0].youtubeUrl %>"
+                                class="w-100 border" style="height:260px;border-radius:8px;" allowfullscreen></iframe>
+                            <% } else { %>
+                                <div class="empty-state">Add content to preview it here.</div>
+                                <% } %>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="form-card h-100">
+                        <h4 class="fw-bold mb-3">Add New Module</h4>
+                        <form action="/add-course-content" method="post">
+                            <label class="form-label fw-bold">Course ID</label>
+                            <input type="text" name="courseId" class="form-control mb-3" value="<%= courseData._id %>"
+                                readonly required>
+
+                            <label class="form-label fw-bold">Module Title</label>
+                            <input type="text" name="title" class="form-control mb-3" placeholder="Enter module title"
+                                required>
+
+                            <label class="form-label fw-bold">YouTube URL</label>
+                            <input type="url" name="youtubeUrl" class="form-control mb-2"
+                                placeholder="https://www.youtube.com/watch?v=..." required>
+                            <p class="muted-copy mb-4">Only YouTube links are supported for lessons.</p>
+
+                            <button class="btn btn-brand w-100">Add Course Content</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <%- include('../components/footer') %>
+        <script>
+            document.querySelectorAll(".content-item").forEach((item) => {
+                item.addEventListener("click", () => {
+                    const framePreview = document.getElementById("contentFramePreview");
+                    const title = document.getElementById("previewTitle");
+                    if (framePreview) framePreview.src = item.dataset.url;
+                    if (title) title.innerText = item.dataset.title;
+                });
+            });
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

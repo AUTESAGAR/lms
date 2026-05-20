@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Course Content</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <%- include('../components/header') %>
+
+    <main class="container auth-layout">
+        <section class="auth-panel">
+            <span class="eyebrow">Content editor</span>
+            <h1 class="hero-title fs-1">Update module details.</h1>
+            <p class="hero-copy">Rename lessons or update the YouTube video link for this course module.</p>
+        </section>
+
+        <section class="form-card">
+            <h3 class="fw-bold mb-4">Edit Course Content</h3>
+            <form action="/edit-course-content" method="post">
+                <label class="form-label fw-bold">Content ID</label>
+                <input type="text" name="courseContentId" class="form-control mb-3" value="<%= courseContent._id %>" readonly required>
+
+                <label class="form-label fw-bold">Course ID</label>
+                <input type="text" name="courseId" class="form-control mb-3" value="<%= courseContent.courseId %>" readonly required>
+
+                <label class="form-label fw-bold">Title</label>
+                <input type="text" name="title" class="form-control mb-3" value="<%= courseContent.title %>" required>
+
+                <label class="form-label fw-bold">YouTube URL</label>
+                <input type="url" name="youtubeUrl" class="form-control mb-2" value="<%= courseContent.youtubeUrl || '' %>" placeholder="https://www.youtube.com/watch?v=..." required>
+                <p class="muted-copy mb-4">Only YouTube links are supported for course lessons.</p>
+
+                <button class="btn btn-brand w-100">Update Content</button>
+            </form>
+        </section>
+    </main>
+
+    <%- include('../components/footer') %>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

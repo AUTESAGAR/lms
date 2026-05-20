@@ -1,0 +1,58 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/lms.css">
+
+<nav class="navbar navbar-expand-lg lms-navbar py-2">
+  <div class="container">
+    <a class="lms-brand" href="/">
+      <img src="vit-technology-solution.png" alt="VIT Technology Solution">
+      <span class="brand-text">
+        VIT Technology
+        <small>Skill LMS</small>
+      </span>
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mx-auto">
+        <% if (userData && userData.role!="admin") { %>
+          <li class="nav-item"><a class="nav-link" href="/home">Explore</a></li>
+          <li class="nav-item"><a class="nav-link" href="/my-courses">My Learning</a></li>
+          <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
+        <% } else if (userData && userData.role=="admin") { %>
+          <li class="nav-item"><a class="nav-link" href="/dashboard">Dashboard</a></li>
+          <li class="nav-item"><a class="nav-link" href="/our-courses">Courses</a></li>
+          <li class="nav-item"><a class="nav-link" href="/add-course">Add Course</a></li>
+        <% } else { %>
+          <li class="nav-item"><a class="nav-link" href="/">Courses</a></li>
+          <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
+        <% } %>
+      </ul>
+
+      <% if (userData) { %>
+        <div class="dropdown">
+          <button class="btn user-menu-btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            <b><%- userData.name %></b>
+            <img src="<%- userData.photo %>" alt="user photo" class="rounded-circle user-avatar ms-2">
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
+            <li><span class="dropdown-item-text text-muted"><%- userData.role.toUpperCase().slice(0,1)+userData.role.slice(1) %> Account</span></li>
+            <li><a class="dropdown-item" href="/edit-profile">Edit Profile</a></li>
+            <li><a class="dropdown-item" href="/logout">Logout</a></li>
+          </ul>
+        </div>
+      <% } else { %>
+        <div class="d-flex gap-2">
+          <a class="btn btn-warning" href="/reg">Register</a>
+          <a class="btn btn-brand" href="/login">Login</a>
+        </div>
+      <% } %>
+    </div>
+  </div>
+</nav>

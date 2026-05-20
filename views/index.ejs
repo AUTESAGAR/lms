@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIT Technology Solution LMS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+   <%- include('./components/header') %>
+
+    <main class="app-shell">
+        <section class="hero-section">
+            <div class="container hero-inner">
+                <div>
+                    <span class="eyebrow">Project based learning platform</span>
+                    <h1 class="hero-title">Master career skills with guided online courses.</h1>
+                    <p class="hero-copy">Learn full stack development, testing, Python, AI and practical tech skills with structured lessons, mentor-style flow and course access from one clean LMS.</p>
+                    <div class="hero-actions">
+                        <a href="#courses" class="btn btn-brand">Explore Courses</a>
+                        <a href="/reg" class="btn btn-warning">Join Now</a>
+                    </div>
+                    <div class="stat-strip">
+                        <div class="stat-pill"><strong>20+</strong><span>Career modules</span></div>
+                        <div class="stat-pill"><strong>4.8</strong><span>Learner rating</span></div>
+                        <div class="stat-pill"><strong>100%</strong><span>Practical focus</span></div>
+                    </div>
+                </div>
+                <div class="hero-card">
+                    <div class="hero-course-preview">
+                        <div class="preview-top"></div>
+                        <div>
+                            <span class="course-tag">Featured learning path</span>
+                            <h3 class="course-title">Full Stack Developer Track</h3>
+                            <p class="course-desc mb-0">Recorded lessons, content unlocks, assignments and course purchase flow ready inside your LMS.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-wrap" id="courses">
+            <div class="container">
+                <div class="section-head">
+                    <div>
+                        <h2>Popular Courses</h2>
+                        <p>Pick a course and start building real skills today.</p>
+                    </div>
+                    <a href="/login" class="btn btn-warning">Login to Enroll</a>
+                </div>
+
+                <% if (courseData && courseData.length) { %>
+                    <div class="course-grid">
+                        <% courseData.forEach(courseData => { %>
+                            <article class="course-card">
+                                <img class="course-thumb" src="<%- courseData.thumbnail %>" alt="<%- courseData.title %> thumbnail">
+                                <div class="course-body">
+                                    <span class="course-tag">Skill course</span>
+                                    <h3 class="course-title"><%- courseData.title %></h3>
+                                    <p class="course-desc"><%- courseData.description.slice(0,150) %></p>
+                                    <div class="course-meta">
+                                        <span class="price">&#8377; <%- courseData.fees %></span>
+                                        <span class="rating">4.8 rating</span>
+                                    </div>
+                                    <a href="/view-course/<%- courseData._id %>" class="btn btn-brand w-100">View Course Details</a>
+                                </div>
+                            </article>
+                        <% }) %>
+                    </div>
+                <% } else { %>
+                    <div class="empty-state">Course Not Available</div>
+                <% } %>
+            </div>
+        </section>
+    </main>
+
+    <%- include('./components/footer') %>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

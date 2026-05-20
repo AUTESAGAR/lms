@@ -1,0 +1,20 @@
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<script>
+    var options = {
+        "key": "<%= keyId %>", 
+        "amount": "<%= courseFees * 100 %>",
+        "currency": "INR",
+        "name": "VIT Technology Solution",
+        "description": "VIT Technology Solution",
+        "order_id": "<%= orderId %>",
+        "handler": function (response) {
+            fetch('/verify-payment', {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ courseId: "<%= courseId %>"})
+            }).then(() => window.location.href = '/my-courses')
+        }
+    };
+    var rzp = new Razorpay(options);
+    rzp.open();
+</script>

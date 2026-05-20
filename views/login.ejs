@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | VIT LMS</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <%- include('./components/header') %>
+
+    <main class="container auth-layout">
+        <section class="auth-panel">
+            <span class="eyebrow">Continue learning</span>
+            <h1 class="hero-title fs-1">Login to your learning dashboard.</h1>
+            <p class="hero-copy">Access enrolled courses, continue lessons and manage your profile from a clean LMS workspace.</p>
+            <div class="stat-strip">
+                <div class="stat-pill"><strong>24/7</strong><span>Course access</span></div>
+                <div class="stat-pill"><strong>Skill</strong><span>Focused</span></div>
+                <div class="stat-pill"><strong>Fast</strong><span>Checkout</span></div>
+            </div>
+        </section>
+
+        <section class="form-card">
+            <h3 class="fw-bold mb-1">Welcome back</h3>
+            <p class="muted-copy mb-4">Enter your details to continue.</p>
+            <form action="/login" method="post">
+                <label class="form-label fw-bold">Email</label>
+                <input type="email" name="email" class="mb-3 form-control" placeholder="name@example.com">
+
+                <label class="form-label fw-bold">Password</label>
+                <input type="password" name="password" class="mb-3 form-control" placeholder="Enter password">
+
+                <% if(message){ %>
+                    <div class="alert-soft mb-3"><%= message %></div>
+                <% } %>
+
+                <div class="d-flex justify-content-between flex-wrap gap-2 mb-4">
+                    <a href="/forgot-password" class="fw-bold text-decoration-none text-muted">Forgot Password?</a>
+                    <a href="/reg" class="fw-bold text-decoration-none">Create Account</a>
+                </div>
+
+                <button class="btn btn-brand w-100">Login</button>
+            </form>
+        </section>
+    </main>
+
+    <%- include('./components/footer') %>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

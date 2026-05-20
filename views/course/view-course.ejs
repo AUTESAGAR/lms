@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%- courseData ? courseData.title : 'Course Details' %></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+   <%- include('../components/header') %>
+
+    <main class="section-wrap">
+        <div class="container">
+            <% if(courseData){ %>
+                <div class="row g-4 align-items-start">
+                    <div class="col-lg-7">
+                        <div class="detail-card overflow-hidden">
+                            <img class="w-100" src="http://localhost:1000/<%- courseData.thumbnail %>" alt="<%- courseData.title %> thumbnail" style="aspect-ratio:16/9;object-fit:cover;">
+                            <div class="p-4">
+                                <span class="course-tag">Professional course</span>
+                                <h1 class="page-title mt-3"><%- courseData.title %></h1>
+                                <p class="hero-copy mt-3"><%- courseData.description %></p>
+                                <div class="stat-strip">
+                                    <div class="stat-pill"><strong><%- courseContent.length %></strong><span>Lessons</span></div>
+                                    <div class="stat-pill"><strong>4.8</strong><span>Rating</span></div>
+                                    <div class="stat-pill"><strong>Life</strong><span>Access</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-5">
+                        <div class="detail-card p-4 mb-4">
+                            <p class="muted-copy mb-1">Course fee</p>
+                            <div class="price mb-3">&#8377; <%- courseData.fees %></div>
+                            <% if (alreadyPurchased) { %>
+                                <a href="/learn-course/<%- courseData._id %>" class="btn btn-brand w-100">Start Learning</a>
+                            <% } else { %>
+                                <form action="/buy-now" method="POST">
+                                    <input type="hidden" name="courseId" value="<%- courseData._id %>">
+                                    <button class="btn btn-brand w-100">Buy Now</button>
+                                </form>
+                            <% } %>
+                        </div>
+
+                        <div class="detail-card p-4">
+                            <h4 class="fw-bold mb-3">Course Content</h4>
+                            <ul class="list-group list-group-flush">
+                                <% if (courseContent && courseContent.length) { %>
+                                    <% courseContent.forEach((courseContent, index) => { %>
+                                        <li class="list-group-item px-0 d-flex justify-content-between align-items-center">
+                                            <span><%- index + 1 %>. <%- courseContent.title %></span>
+                                            <span class="rating">Lesson</span>
+                                        </li>
+                                    <% }) %>
+                                <% }else{ %>
+                                    <li class="list-group-item text-danger px-0">Course Content Not Available</li>
+                                <% } %>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            <% } else { %>
+                <div class="empty-state">Course not found.</div>
+            <% } %>
+        </div>
+    </main>
+
+    <%- include('../components/footer') %>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

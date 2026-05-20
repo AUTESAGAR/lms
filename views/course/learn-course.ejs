@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Course</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .learn-layout {
+            display: grid;
+            grid-template-columns: 330px minmax(0, 1fr);
+            gap: 24px;
+            padding: 28px 0;
+        }
+
+        .lesson-sidebar {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            box-shadow: 0 18px 45px rgba(17, 24, 39, 0.1);
+            padding: 20px;
+            max-height: calc(100vh - 110px);
+            overflow-y: auto;
+        }
+
+        .video-item {
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            padding: 13px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .video-item:hover,
+        .active-video {
+            border-color: #f97316;
+            background: #faf5ff;
+        }
+
+        .locked {
+            opacity: 0.55;
+            cursor: not-allowed;
+        }
+
+        .player-panel {
+            background: #111827;
+            border-radius: 8px;
+            box-shadow: 0 18px 45px rgba(17, 24, 39, 0.18);
+            padding: 24px;
+            color: #fff;
+        }
+
+        @media (max-width: 991px) {
+            .learn-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .lesson-sidebar {
+                max-height: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <%- include('../components/header') %>
+
+    <main class="container learn-layout">
+        <aside class="lesson-sidebar">
+            <span class="course-tag">Enrolled course</span>
+            <h3 class="fw-bold mt-3"><%= courseData.title %></h3>
+            <p class="muted-copy">Complete lessons in sequence to unlock the next module.</p>
+            <hr>
+            <% courseVideos.forEach((video,index)=>{ %>
+                <div class="video-item <%= index !== 0 ? 'locked' : '' %>" data-index="<%= index %>"
+                    data-video="<%- video.youtubeUrl %>"
+                    data-title="<%= video.title %>">
+                    <h6 class="mb-0"><%= index+1 %>. <%= video.title %></h6>
+                </div>
+            <% }) %>
+        </aside>
+
+        <section class="player-panel">
+            <h2 id="videoTitle" class="fw-bold mb-3"><%= courseVideos[0].title %></h2>
+            <iframe id="youtubePlayer" src="<%- courseVideos[0].youtubeUrl %>" class="w-100" style="height:68vh;border:0;border-radius:8px;background:#000;" allowfullscreen></iframe>
+            <button id="markCompleteBtn" class="btn btn-warning mt-3">Mark Complete</button>
+        </section>
+    </main>
+
+    <script>
+        const youtubePlayer = document.getElementById("youtubePlayer");
+        const videoTitle = document.getElementById("videoTitle");
+        const videoItems = document.querySelectorAll(".video-item");
+        const markCompleteBtn = document.getElementById("markCompleteBtn");
+        let unlockedVideos = 1;
+
+        videoItems[0].classList.add("active-video");
+
+        videoItems.forEach((item) => {
+            item.addEventListener("click", () => {
+                const index = parseInt(item.dataset.index);
+                if (index >= unlockedVideos) {
+                    alert("Please complete previous video first");
+                    return;
+                }
+                playVideo(item);
+            });
+        });
+
+        function playVideo(item) {
+            videoItems.forEach((v) => v.classList.remove("active-video"));
+            item.classList.add("active-video");
+            videoTitle.innerText = item.dataset.title;
+            youtubePlayer.src = item.dataset.video;
+        }
+
+        function unlockNextLesson() {
+            const currentIndex = [...videoItems].findIndex((item) => item.classList.contains("active-video"));
+            const nextIndex = currentIndex + 1;
+            if (videoItems[nextIndex]) {
+                unlockedVideos = Math.max(unlockedVideos, nextIndex + 1);
+                videoItems[nextIndex].classList.remove("locked");
+                playVideo(videoItems[nextIndex]);
+            } else {
+                alert("Course Completed! Please explore other courses.");
+            }
+        }
+
+        markCompleteBtn.addEventListener("click", unlockNextLesson);
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

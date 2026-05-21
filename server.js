@@ -8,6 +8,7 @@ import courseRouter from "./routes/course.js"
 import homeRouter from "./routes/home.js"
 import courseOrderRouter from "./routes/courseOrder.js";
 import aboutRouter from "./routes/about.js";
+import contactRouter from "./routes/contact.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import fs from "fs";
@@ -61,6 +62,7 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
 
+app.use(express.static("./static"));
 app.use(express.static("../static"));
 app.use(express.static("../uploads"));
 app.use("/course-content", express.static("./uploads/course-content"));
@@ -88,7 +90,7 @@ app.use(courseRouter);
 app.use(homeRouter);
 app.use(courseOrderRouter);
 app.use(aboutRouter);
-
+app.use(contactRouter);
 app.use((err, req, res, next) => {
     console.log(err);
     const message = err.message || "Something went wrong. Please try again.";
